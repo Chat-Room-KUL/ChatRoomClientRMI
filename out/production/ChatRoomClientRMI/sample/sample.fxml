@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <SplitPane dividerPositions="0.28762541806020064" layoutX="214.0" layoutY="88.0" prefHeight="267.0" prefWidth="322.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="184.0">
+                    <children>
+                        <ListView fx:id="onlineUsers" layoutX="7.0" layoutY="13.0" prefHeight="373.0" prefWidth="152.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="199.0" prefWidth="163.0">
+                    <children>
+                        <TextField fx:id="messageInput" layoutX="14.0" layoutY="345.0" prefHeight="31.0" prefWidth="309.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" />
+                        <Label fx:id="chatBox" alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="308.0" prefWidth="398.0" style="-fx-border-color: black;" text="No messages" textAlignment="CENTER" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+                        <Button fx:id="sendMessageButton" layoutX="338.0" layoutY="345.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="31.0" prefWidth="69.0" text="Send" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="15.0" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
+
