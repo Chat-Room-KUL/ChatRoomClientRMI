@@ -184,7 +184,9 @@ public class Controller implements Observer {
         messageInput.clear();
         System.out.println("The current active chatroom is: " + currentActiveChatRoom + " En de sender is: " + client.getName());
         server.publish(currentActiveChatRoom, client.getName() + ": " + st, client.getName());
-        this.addMessageToChatRoom(currentActiveChatRoom, client.getName() + ": " + st);
+        if (!currentActiveChatRoom.equals("GroupChat")) {
+            this.addMessageToChatRoom(currentActiveChatRoom, client.getName() + ": " + st);
+        }
     }
 
     public void sendMessageToLabel(String groupchat, String message, String sender) throws IOException {
