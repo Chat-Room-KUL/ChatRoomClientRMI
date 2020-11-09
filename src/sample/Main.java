@@ -28,6 +28,7 @@ public class Main extends Application {
             public void handle(WindowEvent we) {
                 try {
                     controller.deleteMyUsername(controller.getClient().getName());
+                    System.exit(0);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
