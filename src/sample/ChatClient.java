@@ -14,11 +14,11 @@ public class ChatClient  extends UnicastRemoteObject implements ChatClientInt{
         name=n;
     }
 
-    public void tell(String st) throws RemoteException{
+    public void tell(String Groupchat, String st, String sender) throws RemoteException{
         System.out.println(st);
         Platform.runLater( () -> {
             try {
-                ui.sendMessageToLabel(st);
+                ui.sendMessageToLabel(Groupchat, st, sender);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -26,6 +26,7 @@ public class ChatClient  extends UnicastRemoteObject implements ChatClientInt{
             }
         });
     }
+
     public String getName() throws RemoteException{
         return name;
     }

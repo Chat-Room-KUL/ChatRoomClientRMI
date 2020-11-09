@@ -81,6 +81,9 @@ public class Main extends Application {
 
         controller.updateOnlineUsers();
 
+        ChatRoom chatroom = new ChatRoom("GroupChat");
+        controller.addChatRoom(chatroom);
+
         new ClientThread(controller).run();
 
     }

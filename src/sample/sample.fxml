@@ -12,7 +12,7 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="179.0" prefWidth="184.0">
                     <children>
-                        <ListView fx:id="onlineUsers" layoutX="7.0" layoutY="13.0" prefHeight="373.0" prefWidth="152.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <ListView fx:id="onlineUsers" layoutX="7.0" layoutY="13.0" prefHeight="373.0" prefWidth="152.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" onMouseClicked="#createPrivateChat"/>
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="199.0" prefWidth="163.0">

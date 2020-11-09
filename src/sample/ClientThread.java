@@ -28,7 +28,7 @@ public class ClientThread extends Thread {
             @Override
             public void run() {
                 try {
-                    controller.sendMessageToLabel("");
+                    controller.sendMessageToLabel("GroupChat","", controller.getClient().getName());
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
