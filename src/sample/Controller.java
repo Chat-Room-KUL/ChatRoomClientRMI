@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -22,7 +19,7 @@ public class Controller implements Observer {
     private ChatClient client;
     private ChatServerInt server;
     private OnlineUsersList onlineUsersList;
-    private List<ChatRoom> chatRooms = new ArrayList<ChatRoom>();
+    private List<ChatRoom> chatRooms = new ArrayList<>();
     private String currentActiveChatRoom = "GroupChat";
 
 
@@ -32,7 +29,7 @@ public class Controller implements Observer {
     private ObservableList<String> items = FXCollections.observableArrayList();
 
     @FXML
-    private Label chatBox;
+    private TextArea chatBox;
 
     @FXML
     private TextField messageInput;
@@ -47,12 +44,10 @@ public class Controller implements Observer {
         onlineUsers.getItems().clear();
         onlineUsers.setItems(items);
         List<String> users = onlineUsersList.getOnlineUsers();
-        for(int i=0;i<users.size();i++){
-            items.add(users.get(i));
-        }
+        items.addAll(users);
     }
 
-    public Label getLabel() {
+    public TextArea getLabel() {
         return chatBox;
     }
 
@@ -66,7 +61,6 @@ public class Controller implements Observer {
             client.setGUI(this);
             server = (ChatServerInt) Naming.lookup("rmi://localhost:1099/myabc");
             server.login(client);
-            //updateUsers(server.getConnected());
         }
         catch(Exception e){
             e.printStackTrace();
@@ -79,12 +73,7 @@ public class Controller implements Observer {
 
     public boolean checkName(String answer) throws RemoteException, NotBoundException, MalformedURLException {
         server = (ChatServerInt) Naming.lookup("rmi://localhost:1099/myabc");
-        if (server.checkIfNameExists(answer)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return server.checkIfNameExists(answer);
     }
 
     // USERLIST METHODS
@@ -104,12 +93,10 @@ public class Controller implements Observer {
 
 
     public void updateOnlineUsers() throws IOException {
-        List<String> onlineUsers = new ArrayList<String>();
+        List<String> onlineUsers = new ArrayList<>();
         onlineUsers.add("GroupChat");
         List<String> onlineUsers2 = server.getAllTheUsers();
-        for (int i = 0; i < onlineUsers2.size(); i++) {
-            onlineUsers.add(onlineUsers2.get(i));
-        }
+        onlineUsers.addAll(onlineUsers2);
         System.out.println(onlineUsers);
         onlineUsersList.setOnlineUsers(onlineUsers);
     }
@@ -149,7 +136,9 @@ public class Controller implements Observer {
 
         System.out.println(chatroom.toString());
         if(chatName.equals(currentActiveChatRoom)){
-            chatBox.setText(chatroom.toString());
+            chatBox.appendText(message + "\n");
+            int caretPosition = chatBox.caretPositionProperty().get();
+            chatBox.positionCaret(caretPosition);
         }
 
     }
@@ -181,11 +170,13 @@ public class Controller implements Observer {
 
     public void sendMessage(ActionEvent actionEvent) throws RemoteException {
         String st = messageInput.getText();
-        messageInput.clear();
-        System.out.println("The current active chatroom is: " + currentActiveChatRoom + " En de sender is: " + client.getName());
-        server.publish(currentActiveChatRoom, client.getName() + ": " + st, client.getName());
-        if (!currentActiveChatRoom.equals("GroupChat")) {
-            this.addMessageToChatRoom(currentActiveChatRoom, client.getName() + ": " + st);
+        if (!st.equals("")) {
+            messageInput.clear();
+            System.out.println("The current active chatroom is: " + currentActiveChatRoom + " En de sender is: " + client.getName());
+            server.publish(currentActiveChatRoom, client.getName() + ": " + st, client.getName());
+            if (!currentActiveChatRoom.equals("GroupChat")) {
+                this.addMessageToChatRoom(currentActiveChatRoom, client.getName() + ": " + st);
+            }
         }
     }
 
@@ -194,7 +185,6 @@ public class Controller implements Observer {
         if(groupchat.equals("GroupChat")) {
             this.addMessageToChatRoom("GroupChat", message);
         } else {
-            //currentActiveChatRoom = sender;
             this.addMessageToChatRoom(sender, message);
         }
 

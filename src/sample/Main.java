@@ -53,18 +53,18 @@ public class Main extends Application {
             try {
                 userName = dialog.showAndWait().get();
             }
-            catch (Exception e) {
+             catch (Exception e) {
             }
 
             if(userName != null && !userName.trim().equals("")){
-                String answer = userName;
-                System.out.println("Hello: " + answer);
-                if (controller.checkName(answer) == true) {
+
+                System.out.println("Hello: " + userName);
+                if (controller.checkName(userName)) {
                     usernameChosen = false;
                 } else {
                     usernameChosen = true;
-                    controller.doConnect(answer);
-                    primaryStage.setTitle(answer + "'s Chat Room");
+                    controller.doConnect(userName);
+                    primaryStage.setTitle(userName + "'s Chat Room");
 
                 }
 
@@ -78,21 +78,15 @@ public class Main extends Application {
 
         onlineUsersList.addObserver(controller);
 
-        //controller.addOnlineUser(userName);
-
         controller.updateOnlineUsers();
 
         ChatRoom chatroom = new ChatRoom("GroupChat");
         controller.addChatRoom(chatroom);
 
-        new ClientThread(controller).run();
+        new ClientThread(controller).start();
 
     }
     public static void main(String[] args) {
-
-        //Main main= new Main();
-        //main.doTest();
-
         Application.launch(args);
     }
 }
