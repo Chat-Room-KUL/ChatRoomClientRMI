@@ -69,6 +69,7 @@ public class Controller implements Observer {
 
     public void deleteMyUsername(String name) throws RemoteException {
         server.deleteClient(name);
+
     }
 
     public boolean checkName(String answer) throws RemoteException, NotBoundException, MalformedURLException {
@@ -178,6 +179,7 @@ public class Controller implements Observer {
                 this.addMessageToChatRoom(currentActiveChatRoom, client.getName() + ": " + st);
             }
         }
+        messageInput.clear();
     }
 
     public void sendMessageToLabel(String groupchat, String message, String sender) throws IOException {
@@ -198,8 +200,40 @@ public class Controller implements Observer {
             if (chatRooms.get(i).getChatRoomName().equals("GroupChat")) {
                 if (chatRooms.get(i).returnLastMessage().endsWith(" has just connected.") || chatRooms.get(i).returnLastMessage().endsWith(" has just disconnected.")) {
                     updateOnlineUsers();
+                    clearChatrooms(sender);
                 }
             }
+        }
+    }
+
+    public void clearChatrooms(String name) {
+        if(currentActiveChatRoom.equals(name)){
+
+            ChatRoom currentChatRoom = new ChatRoom();
+
+            boolean chatRoomExists = false;
+            int i=0;
+            while(!chatRoomExists&&i!=chatRooms.size()){
+                if(chatRooms.get(i).getChatRoomName().equals(name)){
+                    chatRoomExists = true;
+                    chatRooms.remove(i);
+                }
+                i++;
+            }
+
+            currentActiveChatRoom = "GroupChat";
+
+            chatRoomExists = false;
+            i=0;
+            while(!chatRoomExists&&i!=chatRooms.size()){
+                if(chatRooms.get(i).getChatRoomName().equals(currentActiveChatRoom)){
+                    chatRoomExists = true;
+                    currentChatRoom = chatRooms.get(i);
+                }
+                i++;
+            }
+
+            chatBox.setText(currentChatRoom.toString());
         }
     }
 }
