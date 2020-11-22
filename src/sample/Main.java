@@ -58,10 +58,11 @@ public class Main extends Application {
 
             if(userName != null && !userName.trim().equals("")){
 
-                System.out.println("Hello: " + userName);
+
                 if (controller.checkName(userName)) {
                     usernameChosen = false;
                 } else {
+                    System.out.println("Hello: " + userName);
                     usernameChosen = true;
                     controller.doConnect(userName);
                     primaryStage.setTitle(userName + "'s Chat Room");

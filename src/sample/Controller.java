@@ -72,7 +72,7 @@ public class Controller implements Observer {
 
     }
 
-    public boolean checkName(String answer) throws RemoteException, NotBoundException, MalformedURLException {
+    public synchronized boolean checkName(String answer) throws RemoteException, NotBoundException, MalformedURLException {
         server = (ChatServerInt) Naming.lookup("rmi://localhost:1099/myabc");
         return server.checkIfNameExists(answer);
     }
